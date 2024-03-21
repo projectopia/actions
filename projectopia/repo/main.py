@@ -1,7 +1,9 @@
 # Path: trigger/repo/__main__.py
 
-from projectopia.utils.github.repository import PersonalRepository as GitHub
 import argparse
+
+from projectopia.utils.github.repository import PersonalRepository as GitHub
+
 
 def main():
     parser = argparse.ArgumentParser(description="GitHub Repository Operations")
@@ -60,7 +62,7 @@ def main():
         description=args.description,
         private=True if args.private.lower() == "private" else False,
         is_template=False,
-        auto_init=True
+        auto_init=True,
     )
 
     # Create the repository
@@ -70,5 +72,7 @@ def main():
         repo.add_branch(branch_name="gh-pages")
         repo.configure_github_pages(source="/", branch="gh-pages")
 
-if __name__ == "__main__":
-    main()
+
+def run():
+    if __name__ == "__main__":
+        main()

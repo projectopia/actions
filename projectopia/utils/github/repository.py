@@ -1,13 +1,15 @@
-import requests
 import json
 import logging
+from typing import Dict, List
+
+import requests
 from requests.exceptions import Timeout
-from typing import List, Dict
+
 from projectopia.utils.github.config import (
     APIConfig,
-    RepositoryConfig,
     BranchProtectionRulesConfig,
     GithubPagesConfig,
+    RepositoryConfig,
 )
 from projectopia.utils.github.constants import DEFAULT_GITHUB_API_VERSION
 

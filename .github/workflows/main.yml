@@ -75,7 +75,7 @@ jobs:
 
       - name: Create repository using Python Module
         run: |
-          python3 -m projectopia.repo --name "${{ inputs.repository-name }}" --description "${{ inputs.repository-description }}" --private "${{ inputs.repository-private }}" --pages "true" --token "${{ inputs.github-token }}"
+          python3 -m projectopia.repo.main:run --name "${{ inputs.repository-name }}" --description "${{ inputs.repository-description }}" --private "${{ inputs.repository-private }}" --pages "true" --token "${{ inputs.github-token }}"
 
       - name: Apply scaffold
         run: |

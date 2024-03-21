@@ -1,5 +1,7 @@
-from pydantic import BaseModel, constr, Field
-from typing import Optional, Dict
+from typing import Dict, Optional
+
+from pydantic import BaseModel, Field, constr
+
 from projectopia.utils.github.constants import *
 
 
