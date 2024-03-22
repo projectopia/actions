@@ -73,6 +73,5 @@ def main():
         repo.configure_github_pages(source="/", branch="gh-pages")
 
 
-def run():
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
