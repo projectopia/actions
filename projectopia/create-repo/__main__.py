@@ -1,6 +1,7 @@
 # Path: trigger/repo/__main__.py
 
 import argparse
+import os
 
 from projectopia.utils.github.repository import PersonalRepository as GitHub
 
@@ -71,6 +72,9 @@ def main():
     if args.pages.lower() == "true":
         repo.add_branch(branch_name="gh-pages")
         repo.configure_github_pages(source="/", branch="gh-pages")
+
+    with open(os.getenv("GITHUB_ENV"), "a") as f:
+        f.write(f"github-username={str(repo._get_username())}")
 
 
 if __name__ == "__main__":
