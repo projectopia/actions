@@ -57,6 +57,7 @@ def main():
         help="Repository visibility",
     )
     args = parser.parse_args()
+
     repo = GitHub(
         token=args.token,
         name=args.name,
@@ -72,6 +73,7 @@ def main():
     if args.pages.lower() == "true":
         repo.add_branch(branch_name="gh-pages")
         repo.configure_github_pages(source="/", branch="gh-pages")
+        repo.update_homepage()
 
     with open(os.getenv("GITHUB_ENV"), "a") as f:
         f.write(f"github-username={str(repo._get_username())}")
