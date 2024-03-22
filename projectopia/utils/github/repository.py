@@ -224,7 +224,7 @@ class PersonalRepository(BaseRepository):
             "Authorization": f"token {self._token}",
             "Accept": "application/vnd.github.v3+json",
         }
-        if self._name == f"{self._username()}.github.io":
+        if self._name == f"{self._username}.github.io":
             data = {
                 "homepage": f"https://{self._username}.github.io",
             }
