@@ -1,13 +1,15 @@
-import requests
 import json
 import logging
+from typing import Dict, List
+
+import requests
 from requests.exceptions import Timeout
-from typing import List, Dict
+
 from projectopia.utils.github.config import (
     APIConfig,
-    RepositoryConfig,
     BranchProtectionRulesConfig,
     GithubPagesConfig,
+    RepositoryConfig,
 )
 from projectopia.utils.github.constants import DEFAULT_GITHUB_API_VERSION
 
@@ -213,3 +215,30 @@ class PersonalRepository(BaseRepository):
             )
             return False
         return True
+
+    def update_homepage(self):
+        # Use github api to add homepage to the repository
+        # https://docs.github.com/en/rest/reference/repos#update-a-repository
+        url = f"https://api.github.com/repos/{self._username}/{self._name}"
+        headers = {
+            "Authorization": f"token {self._token}",
+            "Accept": "application/vnd.github.v3+json",
+        }
+        if self._name == f"{self._username}.github.io":
+            data = {
+                "homepage": f"https://{self._username}.github.io",
+            }
+            response = requests.patch(url, headers=headers, json=data)
+            if response.status_code == 200:
+                self._logger.info("Homepage added successfully!")
+            else:
+                self._logger.error(f"Failed to add homepage. Error: {response.text}")
+        else:
+            data = {
+                "homepage": f"https://{self._username}.github.io/{self._name}",
+            }
+            response = requests.patch(url, headers=headers, json=data)
+            if response.status_code == 200:
+                self._logger.info("Homepage added successfully!")
+            else:
+                self._logger.error(f"Failed to add homepage. Error: {response.text}")
