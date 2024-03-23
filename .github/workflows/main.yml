@@ -53,6 +53,7 @@ env:
   remote-path: /tmp/github-remote-repo
   cruft-path: /tmp/cruft-generated-repo
   python-version: 3.12
+  github-username: projectopia-bot
 
 jobs:
   generator:

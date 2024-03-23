@@ -3025,37 +3025,48 @@ const ansiStyles = assembleStyles();
 
 /* harmony default export */ const ansi_styles = (ansiStyles);
 
-;// CONCATENATED MODULE: ./index.js
+;// CONCATENATED MODULE: ./src/index.js
 
 
 
 
-// Get a list of inputs that we should hide the values of. 
+// Get a list of inputs that we should hide the values of.
 
-const listOfInputsToExclude = core.getInput('exclude_inputs').split(',').map(item => item.trim());
-let inputsObject = JSON.parse(external_fs_.readFileSync(process.env.GITHUB_EVENT_PATH, 'utf8')).inputs;
+const listOfInputsToExclude = core.getInput("exclude_inputs")
+  .split(",")
+  .map((item) => item.trim());
+let inputsObject = JSON.parse(
+  external_fs_.readFileSync(process.env.GITHUB_EVENT_PATH, "utf8")
+).inputs;
 let allInputKeys = Object.keys(inputsObject);
 
-core.info(`${ansi_styles.blue.open}All inputs for this workflow: ${allInputKeys}`)
-core.info(`${ansi_styles.blue.open}List of inputs to exclude: ${listOfInputsToExclude}`)
+core.info(`${ansi_styles.blue.open}All inputs for this workflow: ${allInputKeys}`);
+core.info(
+  `${ansi_styles.blue.open}List of inputs to exclude: ${listOfInputsToExclude}`
+);
 
-const inputKeysToHide = allInputKeys.filter(inputKey => !listOfInputsToExclude.includes(inputKey))
+const inputKeysToHide = allInputKeys.filter(
+  (inputKey) => !listOfInputsToExclude.includes(inputKey)
+);
 
-core.info(`${ansi_styles.yellow.open}After removing the inputs to exclude, these are all of the inputs that will be hidden: ${inputKeysToHide}`)
+core.info(
+  `${ansi_styles.yellow.open}After removing the inputs to exclude, these are all of the inputs that will be hidden: ${inputKeysToHide}`
+);
 
-// Time to hide the values 
+// Time to hide the values
 
-core.info('')
+core.info("");
 
-for (const inputKey of inputKeysToHide) {    
-  core.info(`${ansi_styles.white.open}Hiding value for input: ${inputKey}`)
-  core.setSecret(inputsObject[inputKey])
+for (const inputKey of inputKeysToHide) {
+  core.info(`${ansi_styles.white.open}Hiding value for input: ${inputKey}`);
+  core.setSecret(inputsObject[inputKey]);
 }
 
-core.info('')
+core.info("");
 
-// Done! 
+// Done!
 
-core.info(`${ansi_styles.green.open}Done!`)
+core.info(`${ansi_styles.green.open}Done!`);
+
 })();
 
