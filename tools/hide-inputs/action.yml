@@ -1,0 +1,11 @@
+name: "Hide sensitive inputs (but node20)"
+description: "Mask the workflow_dispatch and workflow_call inputs"
+
+inputs:
+  exclude_inputs:
+    description: "Example: full-name, phone-num,..."
+    required: false
+
+runs:
+  using: "node20"
+  main: "action.js"

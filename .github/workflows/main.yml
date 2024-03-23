@@ -58,7 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Hide sensitive inputs
-        uses: levibostian/action-hide-sensitive-inputs@1.0.0
+        uses: projectopia/actions/tools/hide-inputs@main
 
       - uses: actions/checkout@v4
 
