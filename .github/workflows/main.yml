@@ -89,14 +89,15 @@ jobs:
       - name: Install project
         run: poetry install --no-interaction
 
-      - name: Create Repository And Apply Scaffold
+      - name: Create Repository
+        run: |
+          source .venv/bin/activate
+          python3 -m projectopia.create-repo --name "${{ inputs.repository-name }}" --description "${{ inputs.repository-description }}" --private "${{ inputs.repository-private }}" --pages "true" --token "${{ inputs.github-token }}"
+
+      - name: Apply Scaffold
         env:
           template-url: "https://github.com/projectopia/forge.${{ inputs.template-type }}"
         run: |
-          source .venv/bin/activate
-          # Create Repository
-          python3 -m projectopia.create-repo --name "${{ inputs.repository-name }}" --description "${{ inputs.repository-description }}" --private "${{ inputs.repository-private }}" --pages "true" --token "${{ inputs.github-token }}"
-
           # Authenticate to GitHub
           touch ~/.netrc
           git config --global user.name "projectopia-bot"
@@ -106,6 +107,7 @@ jobs:
           echo "password ${{ inputs.github-token }}" >> ~/.netrc
 
           # Create project with scaffold
+          source .venv/bin/activate
           git clone https://github.com/${{ env.github-username }}/${{ inputs.repository-name }} ${{ env.remote-path }}
           cruft create ${{ env.template-url }} --directory ${{ inputs.template-choice }}-template --extra-context '{"blog_name": "${{ inputs.project-name }}", "blog_slug": "${{ inputs.repository-name }}", "blog_tagline": "${{ inputs.project-tagline }}", "github_username": "${{ env.github-username }}"}' --overwrite-if-exists --output-dir ${{ env.cruft-path }} -y
           cp -rT "${{ env.cruft-path }}/${{ inputs.repository-name }}" ${{ env.remote-path }}
