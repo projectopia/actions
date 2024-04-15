@@ -13,7 +13,7 @@ cruft = "^2.15.0"
 [tool.poetry.group.dev.dependencies]
 python-dotenv = "^1.0.1"
 isort = "^5.13.2"
-black = "^24.2.0"
+black = "^24.4.0"
 
 [build-system]
 requires = ["poetry-core"]
